@@ -18,6 +18,11 @@
  *
  */
 
+const navBarList = document.querySelector('#navbar__list');
+const navBarMenu = document.querySelector('.navbar__menu');
+const menuLinks = ['home', 'profile', 'contact us'];
+console.log(navBarList);
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -30,7 +35,14 @@
  *
  */
 
-// build the nav
+// build the nav - based on the array of menu items (menuLinks)
+menuLinks.forEach(link => {
+  const newLi = document.createElement('li');
+  newLi.innerHTML = `${link}`;
+  newLi.classList.add('menu__link');
+  navBarList.appendChild(newLi);
+});
+nnavBarMenu.appendChild(navBarList);
 
 // Add class 'active' to section when near top of viewport
 
