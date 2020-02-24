@@ -6,14 +6,34 @@ body {
     rgba(136, 203, 171, 1) 0%,
     rgba(0, 13, 60, 1) 100%
   );
-  margin: 0;
-  font-family: 'Merriweather', serif;
+  font-family: 'Open Sans', Sans-serif;
   color: #fff;
+  margin: 0;
 }
 
+main.container {
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 1400px) {
+  body > .container {
+    width: 1370px;
+  }
+}
+@media screen and (min-width: 1600px) {
+  body > .container {
+    width: 1570px;
+  }
+}
+@media screen and (min-width: 1900px) {
+  body > .container {
+    width: 1870px;
+  }
+}
 /* Typography General*/
+
 h1 {
-  font-family: 'Fira Sans', sans-serif;
+  font-family: 'Roboto', Sans-serif;
   font-size: 3em;
   margin: 2em 1rem;
 }
@@ -21,7 +41,7 @@ h1 {
 @media only screen and (min-width: 35em) {
   h1 {
     font-size: 7em;
-    margin: 2em 4rem 1em;
+    margin: 2em 2rem 1em;
   }
 }
 
@@ -39,7 +59,7 @@ p {
 
 /* ---- Layout Rules ---- */
 main {
-  margin: 10vh 1em 10vh;
+  margin: 10vh 0 10vh;
 }
 
 .main-hero {
@@ -55,8 +75,15 @@ section {
 /* ---- Module Rules ---- */
 
 /* Navigation Styles*/
+/* navbar menu is the flexbox container for navbar__list and search-box */
+.navbar__menu {
+  display: flex;
+  justify-content: space-between;
+}
 .navbar__menu ul {
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
   padding-left: 0;
   margin: 0;
   text-align: right;
@@ -66,9 +93,19 @@ section {
   display: inline-block;
 }
 
+.navbar__menu hr {
+  border-top: 1px solid #333;
+  height: 0.8em;
+  margin: 0.5em;
+}
+
+.navbar__menu hr:last-of-type {
+  visibility: hidden;
+}
+
 .navbar__menu .menu__link {
   display: block;
-  padding: 1em;
+  padding: 0.8em;
   font-weight: bold;
   text-decoration: none;
   color: #000;
@@ -80,19 +117,56 @@ section {
   transition: ease 0.3s all;
 }
 
+/* search-box is the flexbox container for the input and the button */
+.navbar__menu .search-box {
+  display: flex;
+  border-radius: 4px;
+  align-items: center;
+  margin-right: 3rem;
+}
+
+.navbar__menu .search-box__input {
+  height: 1.2rem;
+  outline: 0;
+  color: #c0c0c0;
+  border: 2px solid #c0c0c0;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  padding: 0.2rem;
+}
+
+.navbar__menu .search-box__input:focus {
+  color: #0c4050;
+}
+
+.navbar__menu .search-box__button {
+  display: flex;
+  height: 1.8rem;
+  background: #0c4050;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1rem;
+  border: 1px solid #0c4050;
+  border-radius: 0 4px 4px 0;
+  padding: 0.4rem;
+}
+
 /* Header Styles */
 .page__header {
   background: #fff;
   position: fixed;
   top: 0;
   width: 100%;
+  box-shadow: 0 2px 2px 4px rgba(255, 255, 255, 0.2);
+  opacity: 0.8;
   z-index: 5;
 }
 
 /* Footer Styles */
 .page__footer {
-  background: #000;
-  padding: 3em;
+  background: #0c4050;
+  padding: 1em;
   color: #fff;
 }
 
