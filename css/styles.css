@@ -161,6 +161,13 @@ section {
   box-shadow: 0 2px 2px 4px rgba(255, 255, 255, 0.2);
   opacity: 0.8;
   z-index: 5;
+  opacity: 0.8;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.page__header.hidden {
+  transition: 0.5s ease-in-out;
+  opacity: 0;
 }
 
 /* Footer Styles */
