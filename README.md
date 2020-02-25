@@ -1,1 +1,4 @@
-# Udacity-Front-End-Developer-Nanodegree---P2---Landing-Page
+# Udacity's Front-End Developer Nanodegree 
+## P2 - Landing-Page 
+
+
