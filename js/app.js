@@ -38,7 +38,7 @@ var debounce = function(fn) {
 };
 
 const scrollToSection = element => {
-  element.scrollIntoView();
+  element.scrollIntoView(true);
 };
 
 /**
@@ -172,6 +172,7 @@ const hidePageHeaderIfNotScrolling = () => {
 document.addEventListener('DOMContentLoaded', function(event) {
   buildNavList();
   buildSearchBox();
+  showBackToTopButton();
   buildAnchorsInSections();
   scrollToLink();
 });
@@ -198,9 +199,8 @@ const scrollToLink = () => {
       );
       // Managing scrolling to home, which is not a section
       if (dataNavToScroll === 0) {
-        targetSection = document.querySelector('a[href="#"]').parentElement;
-        console.log(targetSection);
-        scrollToSection(targetSection);
+        // Scroll back to the top
+        window.scrollTo(pageYOffset, 0);
       } else {
         setTargetSectionActive(targetSection);
         scrollToSection(targetSection);
@@ -215,4 +215,30 @@ const setTargetSectionActive = element => {
     section.classList.remove('active');
   });
   element.classList.add('active');
+};
+
+// Show a back to top button when user reaches window height
+const showBackToTopButton = () => {
+  const buttonTop = document.createElement('button');
+  const arrowI = document.createElement('i');
+
+  buttonTop.classList.add('buttonTop');
+  buttonTop.classList.add('hidden');
+
+  arrowI.classList.add('fas');
+  arrowI.classList.add('fa-chevron-up');
+
+  buttonTop.appendChild(arrowI);
+  document.body.appendChild(buttonTop);
+
+  buttonTop.onclick = function() {
+    window.scrollTo(pageYOffset, 0);
+    // after scrollTo, there will be a "scroll" event, so the arrow will hide automatically
+  };
+
+  window.addEventListener('scroll', function() {
+    if (pageYOffset > document.documentElement.clientHeight) {
+      buttonTop.classList.remove('hidden');
+    } else buttonTop.classList.add('hidden');
+  });
 };
