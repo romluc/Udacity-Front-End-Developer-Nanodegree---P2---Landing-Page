@@ -5,9 +5,9 @@
 
 const navBarList = document.querySelector('#navbar__list');
 const navBarMenu = document.querySelector('.navbar__menu');
-const menuLinks = ['home', 'profile', 'product', 'contact us'];
+const menuLinks = ['home', 'profile', 'product', 'services', 'contact us'];
 // const sectionsArray = document.querySelectorAll('section');
-const sections = ['section1', 'section2', 'section3'];
+const sections = ['section1', 'section2', 'section3', 'section4'];
 
 let scrolling = true;
 
@@ -58,9 +58,15 @@ const buildNavList = () => {
     newLi.setAttribute('data-nav', `${link}`);
     newLi.classList.add('menu__link');
 
-    // setting anchors to sections in each link
-    newA.setAttribute('href', `#section${menuLinks.indexOf(link)}`);
     newA.textContent = `${link}`;
+
+    // Isolate home section, so that clicking it'll bring back to the top
+    if (newA.textContent == 'home') {
+      newA.setAttribute('href', `#`);
+    } else {
+      // setting anchors to sections in each link
+      newA.setAttribute('href', `#section${menuLinks.indexOf(link)}`);
+    }
 
     newLi.appendChild(newA);
 
@@ -97,6 +103,7 @@ const buildSearchBox = () => {
 
 const buildSections = () => {
   let idSection = 0;
+  const container = document.querySelector('main.container');
   sections.forEach(element => {
     idSection = sections.indexOf(element) + 1;
     const newSection = document.createElement('section');
@@ -108,7 +115,11 @@ const buildSections = () => {
     newSection.setAttribute('id', `section${idSection}`);
     newSection.setAttribute('data-nav', `Section ${idSection}`);
 
-    newH2.textContent = `Section ${idSection}`;
+    // Extracting sections names from menuLinks array and capitalizing first letter
+    const h2Title =
+      menuLinks[idSection].charAt(0).toUpperCase() +
+      menuLinks[idSection].slice(1);
+    newH2.textContent = `${h2Title}`;
 
     newFirstPara.textContent = `Gathered by gravity prime number cosmic ocean how far away from which we spring white dwarf. The ash of stellar alchemy Orion's sword rich in heavy atoms the sky calls to us permanence of the stars courage of our questions? Not a sunrise but a galaxyrise rich in mystery courage of our questions network of wormholes inconspicuous motes of rock and gas dream of the mind's eye. Citizens of distant epochs encyclopaedia galactica vanquish the impossible sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem extraordinary claims require extraordinary evidence totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.`;
     newSecondPara.textContent = `Muse about Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium invent the universe dream of the mind's eye star stuff harvesting star light Apollonius of Perga? Billions upon billions Sea of Tranquility shores of the cosmic ocean kindling the energy hidden in matter not a sunrise but a galaxyrise radio telescope. Ut enim ad minima veniam the carbon in our apple pies how far away great turbulent clouds courage of our questions inconspicuous motes of rock and gas and billions upon billions upon billions upon billions upon billions upon billions upon billions.`;
@@ -120,7 +131,7 @@ const buildSections = () => {
 
     newSection.appendChild(newDiv);
 
-    document.body.appendChild(newSection);
+    container.appendChild(newSection);
   });
 };
 
@@ -212,6 +223,11 @@ window.onscroll = () => {
   //   console.log(element);
   // });
 };
+
+console.log();
+// homeLink.onclick = function() {
+//   window.scrollTo(pageYOffset, 0);
+// };
 // Build menu
 
 // Set sections as active
