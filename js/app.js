@@ -51,10 +51,18 @@ const scrollToSection = element => {
 const buildNavList = () => {
   menuLinks.forEach(link => {
     const newLi = document.createElement('li');
+    const newA = document.createElement('a');
     const newHr = document.createElement('hr');
-    newLi.textContent = `${link}`;
+
     newLi.setAttribute('data-nav', `${link}`);
     newLi.classList.add('menu__link');
+
+    // setting anchors to sections in each link
+    newA.setAttribute('href', `#section${menuLinks.indexOf(link)}`);
+    newA.textContent = `${link}`;
+
+    newLi.appendChild(newA);
+
     navBarList.appendChild(newLi);
     navBarList.appendChild(newHr);
   });
@@ -84,21 +92,6 @@ const buildSearchBox = () => {
   newSearchBoxButton.appendChild(newSearchBoxButtonI);
 
   navBarMenu.appendChild(newSearchBox);
-};
-
-const buildAnchorsInSections = () => {
-  // each section in sectionsArray receives an anchor
-  sectionsArray.forEach(element => {
-    const newA = document.createElement('a');
-    newA.setAttribute('href', `#${element.id}`);
-    element.prepend(newA);
-  });
-
-  // build anchor in home section as well
-  const element = document.querySelector('.page__header');
-  const newA = document.createElement('a');
-  newA.setAttribute('href', '#');
-  element.prepend(newA);
 };
 
 // Add class 'active' to section when near top of viewport
@@ -173,8 +166,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   buildNavList();
   buildSearchBox();
   showBackToTopButton();
-  buildAnchorsInSections();
-  scrollToLink();
+  // scrollToLink();
 });
 
 window.onscroll = () => {
@@ -188,26 +180,26 @@ window.onscroll = () => {
 // Build menu
 
 // Scroll to section on link click
-const scrollToLink = () => {
-  navBarList.addEventListener('click', e => {
-    if (e.target && e.target.nodeName == 'LI') {
-      const dataNavToScroll = menuLinks.indexOf(
-        e.target.getAttribute('data-nav')
-      );
-      let targetSection = document.querySelector(
-        `[data-nav="Section ${dataNavToScroll}"]`
-      );
-      // Managing scrolling to home, which is not a section
-      if (dataNavToScroll === 0) {
-        // Scroll back to the top
-        window.scrollTo(pageYOffset, 0);
-      } else {
-        setTargetSectionActive(targetSection);
-        scrollToSection(targetSection);
-      }
-    }
-  });
-};
+// const scrollToLink = () => {
+//   navBarList.addEventListener('click', e => {
+//     if (e.target && e.target.nodeName == 'LI') {
+//       const dataNavToScroll = menuLinks.indexOf(
+//         e.target.getAttribute('data-nav')
+//       );
+//       let targetSection = document.querySelector(
+//         `[data-nav="Section ${dataNavToScroll}"]`
+//       );
+//       // Managing scrolling to home, which is not a section
+//       if (dataNavToScroll === 0) {
+//         // Scroll back to the top
+//         window.scrollTo(pageYOffset, 0);
+//       } else {
+//         setTargetSectionActive(targetSection);
+//         scrollToSection(targetSection);
+//       }
+//     }
+//   });
+// };
 
 // Set sections as active
 const setTargetSectionActive = element => {

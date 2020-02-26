@@ -97,6 +97,11 @@ section {
   display: inline-block;
 }
 
+.navbar__menu a {
+  text-decoration: none;
+  color: #333;
+}
+
 .navbar__menu hr {
   border-top: 1px solid #333;
   height: 0.8em;
@@ -110,14 +115,16 @@ section {
 .navbar__menu .menu__link {
   display: block;
   padding: 0.8em;
-  font-weight: bold;
-  text-decoration: none;
-  color: #000;
 }
 
 .navbar__menu .menu__link:hover {
   background: #333;
-  color: #fff;
+  opacity: 0.9;
+  transition: ease 0.3s all;
+}
+
+.menu__link:hover > a {
+  color: #eee;
   transition: ease 0.3s all;
 }
 
