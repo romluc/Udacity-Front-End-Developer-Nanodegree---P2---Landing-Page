@@ -6,7 +6,8 @@
 const navBarList = document.querySelector('#navbar__list');
 const navBarMenu = document.querySelector('.navbar__menu');
 const menuLinks = ['home', 'profile', 'product', 'contact us'];
-const sectionsArray = document.querySelectorAll('section');
+// const sectionsArray = document.querySelectorAll('section');
+const sections = ['section1', 'section2', 'section3'];
 
 let scrolling = true;
 
@@ -94,6 +95,35 @@ const buildSearchBox = () => {
   navBarMenu.appendChild(newSearchBox);
 };
 
+const buildSections = () => {
+  let idSection = 0;
+  sections.forEach(element => {
+    idSection = sections.indexOf(element) + 1;
+    const newSection = document.createElement('section');
+    const newDiv = document.createElement('div');
+    const newH2 = document.createElement('h2');
+    const newFirstPara = document.createElement('p');
+    const newSecondPara = document.createElement('p');
+
+    newSection.setAttribute('id', `section${idSection}`);
+    newSection.setAttribute('data-nav', `Section ${idSection}`);
+
+    newH2.textContent = `Section ${idSection}`;
+
+    newFirstPara.textContent = `Gathered by gravity prime number cosmic ocean how far away from which we spring white dwarf. The ash of stellar alchemy Orion's sword rich in heavy atoms the sky calls to us permanence of the stars courage of our questions? Not a sunrise but a galaxyrise rich in mystery courage of our questions network of wormholes inconspicuous motes of rock and gas dream of the mind's eye. Citizens of distant epochs encyclopaedia galactica vanquish the impossible sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem extraordinary claims require extraordinary evidence totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.`;
+    newSecondPara.textContent = `Muse about Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium invent the universe dream of the mind's eye star stuff harvesting star light Apollonius of Perga? Billions upon billions Sea of Tranquility shores of the cosmic ocean kindling the energy hidden in matter not a sunrise but a galaxyrise radio telescope. Ut enim ad minima veniam the carbon in our apple pies how far away great turbulent clouds courage of our questions inconspicuous motes of rock and gas and billions upon billions upon billions upon billions upon billions upon billions upon billions.`;
+
+    newDiv.classList.add('landing__container');
+    newDiv.appendChild(newH2);
+    newDiv.appendChild(newFirstPara);
+    newDiv.appendChild(newSecondPara);
+
+    newSection.appendChild(newDiv);
+
+    document.body.appendChild(newSection);
+  });
+};
+
 // Add class 'active' to section when near top of viewport
 const isInViewport = function(elem) {
   let distance = elem.getBoundingClientRect();
@@ -163,10 +193,15 @@ const hidePageHeaderIfNotScrolling = () => {
  */
 
 document.addEventListener('DOMContentLoaded', function(event) {
+  let t0 = performance.now();
+
   buildNavList();
+  buildSections();
   buildSearchBox();
   showBackToTopButton();
-  // scrollToLink();
+
+  let t1 = performance.now();
+  console.log(`Dynamic building took ${t1 - t0} milisseconds`);
 });
 
 window.onscroll = () => {
@@ -178,28 +213,6 @@ window.onscroll = () => {
   // });
 };
 // Build menu
-
-// Scroll to section on link click
-// const scrollToLink = () => {
-//   navBarList.addEventListener('click', e => {
-//     if (e.target && e.target.nodeName == 'LI') {
-//       const dataNavToScroll = menuLinks.indexOf(
-//         e.target.getAttribute('data-nav')
-//       );
-//       let targetSection = document.querySelector(
-//         `[data-nav="Section ${dataNavToScroll}"]`
-//       );
-//       // Managing scrolling to home, which is not a section
-//       if (dataNavToScroll === 0) {
-//         // Scroll back to the top
-//         window.scrollTo(pageYOffset, 0);
-//       } else {
-//         setTargetSectionActive(targetSection);
-//         scrollToSection(targetSection);
-//       }
-//     }
-//   });
-// };
 
 // Set sections as active
 const setTargetSectionActive = element => {
