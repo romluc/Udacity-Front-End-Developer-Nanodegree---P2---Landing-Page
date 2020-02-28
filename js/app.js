@@ -5,8 +5,8 @@
 
 const navBarList = document.querySelector('#navbar__list');
 const navBarMenu = document.querySelector('.navbar__menu');
-const menuLinks = ['home', 'profile', 'product', 'services', 'contact us'];
-// const sectionsArray = document.querySelectorAll('section');
+
+const menuLinks = ['home', 'profile', 'product', 'services', 'contact'];
 const sections = ['section1', 'section2', 'section3', 'section4'];
 
 let scrolling = true;
@@ -38,9 +38,18 @@ var debounce = function(fn) {
   };
 };
 
-const scrollToSection = element => {
-  element.scrollIntoView(true);
-};
+function isVisible(elem) {
+  let coords = elem.getBoundingClientRect();
+  let windowHeight = document.documentElement.clientHeight;
+
+  // top elem edge is visible?
+  let topVisible = coords.top > 0 && coords.top < windowHeight;
+
+  // bottom elem edge is visible?
+  let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+  return topVisible || bottomVisible;
+}
 
 /**
  * End Helper Functions
@@ -50,6 +59,10 @@ const scrollToSection = element => {
 
 // build the nav - based on the array of menu items (menuLinks)
 const buildNavList = () => {
+  // button for the burger menu
+  const menuButton = document.createElement('button');
+  menuButton.classList.add('menu-btn');
+
   menuLinks.forEach(link => {
     const newLi = document.createElement('li');
     const newA = document.createElement('a');
@@ -73,6 +86,7 @@ const buildNavList = () => {
     navBarList.appendChild(newLi);
     navBarList.appendChild(newHr);
   });
+  navBarMenu.appendChild(menuButton);
   navBarMenu.appendChild(navBarList);
 };
 
@@ -103,7 +117,10 @@ const buildSearchBox = () => {
 
 const buildSections = () => {
   let idSection = 0;
-  const container = document.querySelector('main.container');
+  const main = document.querySelector('main');
+  const newDivContainer = document.createElement('div');
+  newDivContainer.classList.add('container');
+
   sections.forEach(element => {
     idSection = sections.indexOf(element) + 1;
     const newSection = document.createElement('section');
@@ -131,21 +148,30 @@ const buildSections = () => {
 
     newSection.appendChild(newDiv);
 
-    container.appendChild(newSection);
+    newDivContainer.appendChild(newSection);
+    main.appendChild(newDivContainer);
   });
 };
 
 // Add class 'active' to section when near top of viewport
-const isInViewport = function(elem) {
-  let distance = elem.getBoundingClientRect();
-  return (
-    distance.top >= 0 &&
-    distance.left >= 0 &&
-    distance.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
-    distance.right <=
-      (window.innerWidth || document.documentElement.clientWidth)
-  );
+
+const loadImage = () => {
+  const newContainer = document.createElement('div');
+  const newImg = document.createElement('div');
+
+  const header = document.querySelector('header.main__hero');
+  const mainHeroText = document.querySelector('header > h1');
+
+  header.classList.remove('main__hero');
+
+  newContainer.classList.add('main__hero');
+
+  newImg.classList.add('main__image');
+
+  mainHeroText.classList.add('main__text');
+  newImg.appendChild(mainHeroText);
+  newContainer.appendChild(newImg);
+  header.appendChild(newContainer);
 };
 
 // Scroll to anchor ID using scrollTO event
@@ -207,35 +233,59 @@ document.addEventListener('DOMContentLoaded', function(event) {
   let t0 = performance.now();
 
   buildNavList();
+  loadImage();
   buildSections();
   buildSearchBox();
   showBackToTopButton();
+
+  const sectionsArray = document.querySelectorAll('section');
+
+  const setSectionActive = () => {
+    sectionsArray.forEach(element => {
+      element.classList.remove('active');
+      if (isVisible(element)) {
+        element.classList.add('active');
+        console.log(element.firstChild.firstChild.textContent.toLowerCase());
+      }
+    });
+  };
+
+  let debouncedSetSectionActive = debounce(setSectionActive);
+  let i = 0;
+  window.addEventListener(
+    'scroll',
+    function() {
+      i++;
+      debouncedSetSectionActive();
+      console.log(`called ${i} times`);
+    },
+    false
+  );
 
   let t1 = performance.now();
   console.log(`Dynamic building took ${t1 - t0} milisseconds`);
 });
 
-window.onscroll = () => {
-  //scrollStop(hidePageHeaderIfNotScrolling);
-  // sectionsArray.forEach(element => {
-  //   let isIt = isInViewport(element);
-  //   console.log(isIt);
-  //   console.log(element);
-  // });
-};
+// function showVisible() {
+//   for (let img of document.querySelectorAll('img')) {
+//     let realSrc = img.dataset.src;
+//     if (!realSrc) continue;
 
-console.log();
-// homeLink.onclick = function() {
-//   window.scrollTo(pageYOffset, 0);
-// };
-// Build menu
+//     if (isVisible(img)) {
+//       console.log('came here');
+//       img.src = realSrc;
+//       img.dataset.src = '';
+//     }
+//   }
+// }
 
 // Set sections as active
 const setTargetSectionActive = element => {
   sectionsArray.forEach(section => {
     section.classList.remove('active');
   });
-  element.classList.add('active');
+
+  console.log(`${element} is active`);
 };
 
 // Show a back to top button when user reaches window height
@@ -252,10 +302,10 @@ const showBackToTopButton = () => {
   buttonTop.appendChild(arrowI);
   document.body.appendChild(buttonTop);
 
-  buttonTop.onclick = function() {
+  buttonTop.addEventListener('click', function() {
     window.scrollTo(pageYOffset, 0);
     // after scrollTo, there will be a "scroll" event, so the arrow will hide automatically
-  };
+  });
 
   window.addEventListener('scroll', function() {
     if (pageYOffset > document.documentElement.clientHeight) {
