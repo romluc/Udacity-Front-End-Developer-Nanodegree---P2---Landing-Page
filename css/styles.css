@@ -1,6 +1,7 @@
 /* ---- Base Rules ---- */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -12,7 +13,7 @@ body {
   );
   font-family: 'Open Sans', Sans-serif;
   color: #fff;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .container {
@@ -20,26 +21,28 @@ body {
 }
 
 @media screen and (min-width: 1400px) {
-  body > .container {
-    width: 1370px;
+  body .container {
+    max-width: 1200px;
   }
 }
 @media screen and (min-width: 1600px) {
   body > .container {
-    width: 1570px;
+    max-width: 1400px;
   }
 }
 @media screen and (min-width: 1900px) {
   body > .container {
-    width: 1870px;
+    max-width: 1700px;
   }
 }
+
 /* Typography General*/
 
 h1 {
   font-family: 'Roboto', Sans-serif;
   font-size: 3em;
   margin: 2em 1rem;
+  color: #333;
 }
 
 @media only screen and (min-width: 35em) {
@@ -54,6 +57,7 @@ h2 {
   font-family: 'Oxygen', Sans-Serif;
   font-size: 3em;
   color: #fff;
+  opacity: 0.5;
 }
 
 p {
@@ -63,13 +67,8 @@ p {
 
 /* ---- Layout Rules ---- */
 main {
-  margin: 3em 0 2em;
+  margin: 0 auto;
 }
-
-/* .main-hero {
-  min-height: 40vh;
-  padding-top: 3em;
-} */
 
 section {
   position: relative;
@@ -86,7 +85,7 @@ section {
 }
 .navbar__menu ul {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   padding-left: 0;
   margin: 0;
@@ -163,21 +162,59 @@ section {
   padding: 0.4rem;
 }
 
+.menu-btn {
+  display: none;
+}
+
 @media (max-width: 700px) {
+  .page__header {
+  }
   .menu-btn {
     display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 0.5em 1em 0 0;
+    padding: 0.4em;
+    width: 40px;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #eee;
+    z-index: 1;
+    opacity: 0.9;
+    box-shadow: 0 0 2px 2px gray;
   }
 
   .menu-btn:hover {
-    opacity: 0.5;
+    background-color: honeydew;
+    transition: 0.4s ease;
+    cursor: pointer;
+    opacity: 0.6;
+    color: #eee;
+    background-color: #333;
+    outline: 0;
+    border: 1px solid gray;
   }
+
+  .menu-btn:focus {
+    outline: 0;
+  }
+
   /* 
   .main-nav ul.search-menu {
     margin-right: 50px;
   } */
 
+  .navbar__menu {
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
   .navbar__menu ul.navbar__list {
-    display: block;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 0;
     left: 0;
@@ -244,6 +281,12 @@ section {
   transition: 0.5s ease-in-out;
 }
 
+@media (max-width: 700px) {
+  .buttonTop {
+    left: 90vw;
+  }
+}
+
 .buttonTop.hidden {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
@@ -263,9 +306,13 @@ section {
 /* ---- Theme Rules ---- */
 /* Landing Container Styles */
 .landing__container {
-  padding: 1em;
+  padding: 2em;
   text-align: left;
 }
+
+/* .landing__container > .content {
+  display: none;
+} */
 
 .main__hero {
   display: flex;
@@ -292,13 +339,14 @@ section {
   left: 50%;
   transform: translate(-50%, -50%);
   color: #fefefe;
+  text-shadow: 1px 1px 2px #0c4050, 5px 5px 20px #0c4050;
   font-size: 5rem;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 @media only screen and (min-width: 35em) {
   .landing__container {
-    max-width: 50em;
+    max-width: 100%;
     padding: 10em;
   }
 }
@@ -334,7 +382,7 @@ section:nth-of-type(even) .landing__container::before {
   );
   position: absolute;
   top: 3em;
-  right: 3em;
+  right: -3em;
   z-index: -5;
   width: 10vh;
   height: 10vh;
@@ -343,7 +391,7 @@ section:nth-of-type(even) .landing__container::before {
   transition: ease 0.5s all;
 }
 
-section:nth-of-type(3n) .landing__container::after {
+section:nth-of-type(odd) .landing__container::after {
   content: '';
   background: rgb(255, 255, 255);
   background: linear-gradient(
@@ -352,7 +400,7 @@ section:nth-of-type(3n) .landing__container::after {
     rgba(255, 255, 255, 0.2) 100%
   );
   position: absolute;
-  right: 0;
+  right: 80vw;
   bottom: 0;
   z-index: -5;
   width: 10vh;
@@ -362,7 +410,7 @@ section:nth-of-type(3n) .landing__container::after {
   transition: ease 0.5s all;
 }
 
-section:nth-of-type(3n + 1) .landing__container::after {
+section:nth-of-type(even) .landing__container::after {
   content: '';
   background: rgb(255, 255, 255);
   background: linear-gradient(
@@ -371,7 +419,7 @@ section:nth-of-type(3n + 1) .landing__container::after {
     rgba(255, 255, 255, 0.2) 100%
   );
   position: absolute;
-  right: 20vw;
+  right: 15vw;
   bottom: -5em;
   z-index: -5;
   width: 15vh;
@@ -391,6 +439,12 @@ section.active {
     rgba(0, 0, 0, 0.1) 0%,
     rgba(0, 0, 0, 0) 100%
   );
+}
+
+section.active h2 {
+  transition: 0.5s ease;
+  border-bottom: 1px solid #cc1;
+  opacity: 1;
 }
 
 section.active .landing__container::before {
