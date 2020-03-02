@@ -20,6 +20,7 @@ body {
   margin: 0 auto;
 }
 
+/* Media queries for extra large screens */
 @media screen and (min-width: 1400px) {
   body .container {
     max-width: 1200px;
@@ -217,7 +218,6 @@ section:first-of-type {
     border-right: 1px solid #ccc;
     opacity: 0.9;
     padding: 30px;
-
     transition: transform 0.5s ease-in-out;
   }
 
@@ -290,12 +290,12 @@ section:first-of-type {
 /* Main styles */
 /*=============*/
 
-.buttonTop {
+.button-top {
   height: 1.5em;
   width: 1.5em;
   position: fixed;
   top: 90vh;
-  left: 95vw;
+  left: 92vw;
   border-radius: 4px;
   color: #0c4050;
   background: #eee;
@@ -335,7 +335,7 @@ section:first-of-type {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  .buttonTop {
+  .button-top {
     left: 88vw;
   }
 
@@ -391,8 +391,9 @@ section:first-of-type {
   }
 }
 
-.buttonTop.hidden {
+.button-top.hidden {
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.5s ease-in-out;
 }
 

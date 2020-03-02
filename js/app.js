@@ -181,7 +181,7 @@ const buildBackToTopButton = () => {
   const buttonTop = document.createElement('button');
   const arrowI = document.createElement('i');
 
-  buttonTop.classList.add('buttonTop');
+  buttonTop.classList.add('button-top');
   buttonTop.classList.add('hidden');
 
   arrowI.classList.add('fas');
@@ -263,7 +263,7 @@ window.addEventListener('scroll', () => {
 
   // Hide page header after a set number of ms
   // But only if it is not the burger menu
-  if (innerWidth > 700) {
+  if (innerWidth > 768) {
     scrollStop(hidePageHeaderIfNotScrolling);
   }
 });
