@@ -31,28 +31,6 @@ let debounce = function(func, wait = 1000, immediate = true) {
   };
 };
 
-// let debounce = function(fn) {
-//   // Setup a timer
-//   let timeout;
-
-//   // Return a function to run debounced
-//   return function() {
-//     // Setup the arguments
-//     var context = this;
-//     var args = arguments;
-
-//     // If there's a timer, cancel it
-//     if (timeout) {
-//       window.cancelAnimationFrame(timeout);
-//     }
-
-//     // Setup the new requestAnimationFrame()
-//     timeout = window.requestAnimationFrame(function() {
-//       fn.apply(context, args);
-//     });
-//   };
-// };
-
 function isVisible(elem) {
   let coords = elem.getBoundingClientRect();
   let windowHeight = document.documentElement.clientHeight;
@@ -157,25 +135,6 @@ const buildSearchBox = () => {
   navBarMenu.appendChild(newSearchBox);
 };
 
-const loadImage = () => {
-  const newContainer = document.createElement('div');
-  const newImg = document.createElement('div');
-
-  const header = document.querySelector('header.main__hero');
-  const mainHeroText = document.querySelector('header > h1');
-
-  header.classList.remove('main__hero');
-
-  newContainer.classList.add('main__hero');
-
-  newImg.classList.add('main__image');
-
-  mainHeroText.classList.add('main__text');
-  newImg.appendChild(mainHeroText);
-  newContainer.appendChild(newImg);
-  header.appendChild(newContainer);
-};
-
 const buildSections = () => {
   let idSection = 0;
   const main = document.querySelector('main');
@@ -251,8 +210,6 @@ const hidePageHeaderIfNotScrolling = () => {
 const sectionsContent = document.querySelectorAll('.content');
 let i = 0;
 const setSectionActive = arr => {
-  i++;
-  console.log(`called ${i} times`);
   arr.forEach(element => {
     element.classList.remove('active');
     if (isVisible(element)) {
@@ -272,7 +229,6 @@ const setSectionActive = arr => {
 
 buildNavList();
 buildSearchBox();
-loadImage();
 buildSections();
 
 const burgerButton = document.querySelector('.menu-btn');
@@ -290,6 +246,10 @@ window.addEventListener('click', evt => {
 const buttonTop = buildBackToTopButton();
 const sectionsArr = document.querySelectorAll('.container > section');
 const header = document.querySelector('.page__header');
+const pageTitle = document.querySelector('.main__hero > h1');
+
+// dynamically setting the page title
+pageTitle.textContent = `RomLuc's Landing Page`;
 
 buttonTop.addEventListener('click', function() {
   window.scrollTo(pageYOffset, 0);
