@@ -2,6 +2,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body {
@@ -40,16 +41,10 @@ body {
 
 h1 {
   font-family: 'Roboto', Sans-serif;
-  font-size: 3em;
-  margin: 2em 1rem;
+  text-align: center;
+  font-size: 6em;
+  padding: 1em;
   color: #333;
-}
-
-@media only screen and (min-width: 35em) {
-  h1 {
-    font-size: 7em;
-    margin: 2em 2rem 1em;
-  }
 }
 
 h2 {
@@ -75,6 +70,10 @@ section {
   min-height: 80vh;
 }
 
+section:first-of-type {
+  margin-top: 6vh;
+}
+
 /* ---- Module Rules ---- */
 
 /* Navigation Styles*/
@@ -83,6 +82,7 @@ section {
   display: flex;
   justify-content: space-between;
 }
+
 .navbar__menu ul {
   display: flex;
   justify-content: center;
@@ -167,8 +167,15 @@ section {
 }
 
 @media (max-width: 700px) {
-  .page__header {
+  header.page__header {
+    width: 100%;
+    opacity: 0.8;
   }
+
+  hr {
+    display: none;
+  }
+
   .menu-btn {
     display: block;
     position: absolute;
@@ -200,49 +207,69 @@ section {
     outline: 0;
   }
 
-  /* 
-  .main-nav ul.search-menu {
-    margin-right: 50px;
-  } */
-
   .navbar__menu {
     display: none;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-
-  .navbar__menu ul.navbar__list {
-    display: flex;
-    flex-direction: column;
     position: absolute;
     top: 0;
     left: 0;
-    width: 50%;
-    height: 100%;
+    width: 50vw;
+    height: 55vh;
     background: #f2f2f2;
     border-right: 1px solid #ccc;
     opacity: 0.9;
     padding: 30px;
-    transform: translateX(-500px);
+
     transition: transform 0.5s ease-in-out;
   }
 
-  .navbar__menu ul.navbar__list li {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    font-size: 14px;
+  .navbar__menu.show {
+    display: block;
+    transition: transform 0.5s ease-in-out;
   }
 
-  .navbar__menu ul.navbar__list li:last-child {
+  .navbar__menu.show ul {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50vw;
+    height: 50vh;
+    background: #f2f2f2;
+    opacity: 0.9;
+    padding: 30px;
+  }
+
+  .navbar__menu ul li {
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    font-size: 1.2rem;
+    margin-right: 8rem;
+  }
+
+  .navbar__menu li:first-of-type {
+    display: none;
+  }
+  .navbar__menu li:last-of-type {
     border-bottom: 0;
   }
 
-  .navbar__menu ul.navbar__list.show {
-    transform: translateX(-20px);
+  .navbar__menu.show .search-box {
+    display: block;
+    position: absolute;
+    top: 47vh;
+    border-radius: 4px;
   }
 }
 
+@media (min-width: 700px) and (max-width: 1200px) {
+  .navbar__menu .search-box {
+    display: flex;
+    border-radius: 4px;
+    align-items: center;
+    min-width: 4rem;
+  }
+}
 /* Header Styles */
 .page__header {
   background: #fff;
@@ -252,7 +279,6 @@ section {
   box-shadow: 0 2px 2px 4px rgba(255, 255, 255, 0.2);
   opacity: 0.8;
   z-index: 5;
-  opacity: 0.8;
   transition: opacity 0.5s ease-in-out;
 }
 
@@ -281,9 +307,81 @@ section {
   transition: 0.5s ease-in-out;
 }
 
+.main__hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.main__image {
+  height: 100%;
+  width: 100%;
+  background-image: url('/img/hero-image.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.main__text {
+  text-align: center;
+  position: absolute;
+  color: #fefefe;
+  text-shadow: 1px 1px 2px #0c4050, 5px 5px 20px #0c4050;
+  font-size: 10rem;
+  opacity: 0.5;
+}
+
 @media (max-width: 700px) {
   .buttonTop {
     left: 90vw;
+  }
+
+  .main__text {
+    padding-top: 4em;
+    font-size: 5rem;
+  }
+
+  .content p {
+    font-size: 0.8rem;
+  }
+
+  footer {
+    font-size: 0.7rem;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1200px) {
+  .main__text {
+    padding-top: 2em;
+    font-size: 7rem;
+  }
+
+  .content p {
+    font-size: 0.8rem;
+  }
+
+  footer {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .main__text {
+    padding-top: 2em;
+    font-size: 5rem;
+  }
+
+  .content p {
+    padding: 1em;
+    font-size: 0.7rem;
+  }
+
+  footer {
+    font-size: 0.7rem;
   }
 }
 
@@ -310,44 +408,17 @@ section {
   text-align: left;
 }
 
-/* .landing__container > .content {
-  display: none;
-} */
-
-.main__hero {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 80vh;
-}
-
-.main__image {
-  height: 100%;
-  width: 100%;
-  background-image: url('/img/hero-image.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
-
-.main__text {
-  text-align: center;
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fefefe;
-  text-shadow: 1px 1px 2px #0c4050, 5px 5px 20px #0c4050;
-  font-size: 5rem;
-  opacity: 0.4;
+@media (max-width: 700px) {
+  .landing__container {
+    max-width: 100%;
+    padding: 1.5em;
+  }
 }
 
 @media only screen and (min-width: 35em) {
   .landing__container {
     max-width: 100%;
-    padding: 10em;
+    padding: 8em;
   }
 }
 
@@ -365,8 +436,9 @@ section:nth-of-type(odd) .landing__container::before {
   background: rgba(255, 255, 255, 0.187);
   position: absolute;
   z-index: -5;
-  width: 20vh;
-  height: 20vh;
+  width: 12vh;
+  height: 12vh;
+  left: 8vw;
   border-radius: 50%;
   opacity: 0;
   transition: ease 0.5s all;
@@ -381,11 +453,11 @@ section:nth-of-type(even) .landing__container::before {
     rgba(255, 255, 255, 0.2) 100%
   );
   position: absolute;
-  top: 3em;
-  right: -3em;
+  top: 10vh;
+  right: 10vw;
   z-index: -5;
-  width: 10vh;
-  height: 10vh;
+  width: 6vh;
+  height: 6vh;
   border-radius: 50%;
   opacity: 0;
   transition: ease 0.5s all;
@@ -400,11 +472,11 @@ section:nth-of-type(odd) .landing__container::after {
     rgba(255, 255, 255, 0.2) 100%
   );
   position: absolute;
-  right: 80vw;
-  bottom: 0;
+  left: 14vw;
+  top: 10vh;
   z-index: -5;
-  width: 10vh;
-  height: 10vh;
+  width: 8vh;
+  height: 8vh;
   border-radius: 50%;
   opacity: 0;
   transition: ease 0.5s all;
@@ -420,10 +492,10 @@ section:nth-of-type(even) .landing__container::after {
   );
   position: absolute;
   right: 15vw;
-  bottom: -5em;
+  top: 6vh;
   z-index: -5;
-  width: 15vh;
-  height: 15vh;
+  width: 12vh;
+  height: 12vh;
   border-radius: 50%;
   opacity: 0;
   transition: ease 0.5s all;

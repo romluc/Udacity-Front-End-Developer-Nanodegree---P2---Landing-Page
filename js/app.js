@@ -3,8 +3,8 @@
  *
  */
 
-const navBarList = document.querySelector('#navbar__list');
 const navBarMenu = document.querySelector('.navbar__menu');
+const navBarList = document.querySelector('#navbar__list');
 
 const menuLinks = ['home', 'profile', 'product', 'services', 'contact'];
 const sections = ['section1', 'section2', 'section3', 'section4'];
@@ -276,8 +276,15 @@ loadImage();
 buildSections();
 
 const burgerButton = document.querySelector('.menu-btn');
-burgerButton.addEventListener('click', () => {
-  document.querySelector('ul.navbar__list').classList.add('show');
+window.addEventListener('click', evt => {
+  targetElement = evt.target;
+  if (targetElement == burgerButton) {
+    document.querySelector('.navbar__menu').classList.toggle('show');
+  } else if (
+    document.querySelector('.navbar__menu').classList.contains('show')
+  ) {
+    document.querySelector('.navbar__menu').classList.toggle('show');
+  } else return;
 });
 
 const buttonTop = buildBackToTopButton();
@@ -293,7 +300,10 @@ window.addEventListener('scroll', () => {
 
   showButtonBackToTop(buttonTop);
   debounce(setSectionActive(sectionsArr));
-  // setSectionActive(sectionsArr);
 
-  // scrollStop(hidePageHeaderIfNotScrolling);
+  // Hide page header after a set number of ms
+  // But only if it is not the burger menu
+  if (innerWidth > 700) {
+    scrollStop(hidePageHeaderIfNotScrolling);
+  }
 });
