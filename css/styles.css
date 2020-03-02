@@ -339,6 +339,10 @@ section:first-of-type {
     left: 88vw;
   }
 
+  .navbar__menu.show .search-box {
+    display: none;
+  }
+
   .main__hero h1 {
     padding-top: 1em;
     font-size: 3rem;
@@ -359,6 +363,10 @@ section:first-of-type {
   .main__text {
     padding-top: 3em;
     font-size: 5rem;
+  }
+
+  .navbar__menu.show .search-box {
+    display: none;
   }
 
   .content p {
@@ -385,9 +393,8 @@ section:first-of-type {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  .main__text {
-    padding-top: 2em;
-    font-size: 7rem;
+  .navbar__menu.show .search-box {
+    display: flex;
   }
 }
 
@@ -406,10 +413,6 @@ section:first-of-type {
 
 .page__footer p {
   color: #fff;
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
 }
 
 /* ---- Theme Rules ---- */
