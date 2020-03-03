@@ -18,13 +18,13 @@ const sections = ['section1', 'section2', 'section3', 'section4'];
 let debounce = function(func, wait = 1000, immediate = true) {
   let timeout;
   return function() {
-    var context = this,
+    let context = this,
       args = arguments;
-    var later = function() {
+    let later = function() {
       timeout = null;
       if (!immediate) func.apply(context, args);
     };
-    var callNow = immediate && !timeout;
+    let callNow = immediate && !timeout;
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
     if (callNow) func.apply(context, args);
