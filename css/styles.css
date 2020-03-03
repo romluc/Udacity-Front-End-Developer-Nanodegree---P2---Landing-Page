@@ -66,8 +66,9 @@ main {
 }
 
 section {
+  scroll-margin-top: 3.5em;
   position: relative;
-  min-height: 100vh;
+  min-height: 60vh;
 }
 
 section:first-of-type {
@@ -348,6 +349,10 @@ section:first-of-type {
     font-size: 3rem;
   }
 
+  section {
+    scroll-margin-top: 0;
+  }
+
   .content p {
     padding: 1em;
     font-size: 0.7rem;
@@ -418,7 +423,7 @@ section:first-of-type {
 /* ---- Theme Rules ---- */
 /* Landing Container Styles */
 .landing__container {
-  padding: 2em;
+  padding: 0 2em 0;
   text-align: left;
 }
 
@@ -432,7 +437,7 @@ section:first-of-type {
 @media only screen and (min-width: 35em) {
   .landing__container {
     max-width: 100%;
-    padding: 8em;
+    padding: 0 4em 0;
   }
 }
 

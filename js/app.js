@@ -41,7 +41,11 @@ function isVisible(elem) {
   // bottom elem edge is visible?
   let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
 
-  return topVisible || bottomVisible;
+  // any part of the body visible even when top nor bottom is visible?
+  let bodyVisible =
+    coords.top < 0 && coords.bottom > 0 && coords.bottom > windowHeight;
+
+  return topVisible || bottomVisible || bodyVisible;
 }
 
 // Check if the user stopped scrolling so that the page header can be hidden
@@ -207,13 +211,13 @@ const hidePageHeaderIfNotScrolling = () => {
 };
 
 // Add class 'active' to section when near top of viewport
+
 const setSectionActive = arr => {
   arr.forEach(element => {
     element.classList.remove('active');
     // Show active section using
     if (isVisible(element)) {
       element.classList.add('active');
-      console.log(element.firstChild.firstChild.textContent.toLowerCase());
     }
   });
 
