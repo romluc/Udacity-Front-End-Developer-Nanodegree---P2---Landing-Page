@@ -207,11 +207,10 @@ const hidePageHeaderIfNotScrolling = () => {
 };
 
 // Add class 'active' to section when near top of viewport
-const sectionsContent = document.querySelectorAll('.content');
-let i = 0;
 const setSectionActive = arr => {
   arr.forEach(element => {
     element.classList.remove('active');
+    // Show active section using
     if (isVisible(element)) {
       element.classList.add('active');
       console.log(element.firstChild.firstChild.textContent.toLowerCase());
@@ -231,7 +230,14 @@ buildNavList();
 buildSearchBox();
 buildSections();
 
+// Variables created after dynamic construction of sections
+const pageTitle = document.querySelector('.main__hero > h1');
 const burgerButton = document.querySelector('.menu-btn');
+const header = document.querySelector('.page__header');
+const buttonTop = buildBackToTopButton();
+const sectionsArr = document.querySelectorAll('section');
+
+// Toggle hamburger menu's visibility upon clicking
 window.addEventListener('click', evt => {
   targetElement = evt.target;
   if (targetElement == burgerButton) {
@@ -242,11 +248,6 @@ window.addEventListener('click', evt => {
     document.querySelector('.navbar__menu').classList.toggle('show');
   } else return;
 });
-
-const buttonTop = buildBackToTopButton();
-const sectionsArr = document.querySelectorAll('.container > section');
-const header = document.querySelector('.page__header');
-const pageTitle = document.querySelector('.main__hero > h1');
 
 // dynamically setting the page title
 pageTitle.textContent = `RomLuc's Landing Page`;

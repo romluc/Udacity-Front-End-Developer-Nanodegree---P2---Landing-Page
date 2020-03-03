@@ -67,7 +67,7 @@ main {
 
 section {
   position: relative;
-  min-height: 80vh;
+  min-height: 100vh;
 }
 
 section:first-of-type {
